@@ -1,0 +1,33 @@
+.page-content{
+  background-image: url(../../assets/login-background.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.page-content mat-card {
+  padding: 0;
+}
+
+.login-header {
+  width: 100%;
+  padding: 2.5rem 1.8rem 0 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #3f51b5
+}
+
+mat-card {
+  border-radius: 25px;
+}
+
+.login-form{
+  padding: 1.8rem;
+}
+
+button {
+  margin-top: 1.6rem;
+}

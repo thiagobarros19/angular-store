@@ -1,0 +1,23 @@
+
+<mat-drawer-container class="page" autosize>
+  <mat-drawer #drawer mode="side">
+    <div></div>
+  </mat-drawer>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" mat-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Página Inicial</span>
+  </mat-toolbar>
+
+  <div class="page-content">
+    Content
+  </div>
+
+  <footer>
+    Footer
+  </footer>
+
+
+</mat-drawer-container>
