@@ -1,7 +1,10 @@
-
 <mat-card>
-  <div class="login-header">Login</div>
+  <div class="login-header">Cadastre-se</div>
   <form id="loginForm" class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" fxLayoutAlign="stretch" fxLayout="column" class="login-form" novalidate>
+
+    <mat-form-field>
+      <input matInput placeholder="Nome" ngModel name="name" autocomplete="off" >
+    </mat-form-field>
 
     <mat-form-field>
       <input matInput placeholder="Nome de usuário" ngModel name="username" autocomplete="off" >
@@ -11,9 +14,13 @@
       <input matInput type="password" placeholder="Senha de acesso" ngModel name="password" autocomplete="off">
     </mat-form-field>
 
+    <mat-form-field>
+      <input matInput type="password" placeholder="Confirme sua senha" ngModel name="password_confirmation" autocomplete="off">
+    </mat-form-field>
+
     <button mat-flat-button color="primary">Entrar</button>
   </form>
   <div class="login-footer">
-    <a mat-button routerLink="/register">Cadastre-se</a>
+    <a mat-button routerLink="/login">Voltar</a>
   </div>
 </mat-card>
