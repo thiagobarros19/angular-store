@@ -15,11 +15,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterComponent } from './register/register.component';
+import { ProdutosComponent } from './produtos/produtos.component';
+import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     DashboardComponent,
     LoginPageComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProdutosComponent,
+    CadastroProdutoComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,8 @@ import { RegisterComponent } from './register/register.component';
     MatDialogModule,
     MatIconModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,23 +1,29 @@
-
-<mat-drawer-container class="page" autosize>
-  <mat-drawer #drawer mode="side">
-    <div></div>
-  </mat-drawer>
-
-  <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" mat-button (click)="drawer.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Página Inicial</span>
-  </mat-toolbar>
-
-  <div class="page-content">
-    Content
+<div class="page">
+  <header>
+    <div>
+      <ul>
+        <li><button routerLink="/dashboard/produtos" mat-button>Início</button></li>
+        <li><button routerLink="/dashboard/cadastro-produto" mat-button>Novo produto</button></li>
+      </ul>
+    </div>
+    <div>Início</div>
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu">Olá, Thiago!</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">Sair</button>
+      </mat-menu>
+    </div>
+  </header>
+  <div>
+    <router-outlet></router-outlet>
   </div>
-
   <footer>
-    Footer
+    <span><b>Created by:</b> Thiago Silva - 2020</span>
+    <a href="https://www.instagram.com/th.sbarros/" target="_blank">
+      <img src="../../assets/instagram.svg">
+    </a>
+    <a href="https://github.com/thiagobarros19" target="_blank">
+      <img src="../../assets/github.svg">
+    </a>
   </footer>
-
-
-</mat-drawer-container>
+</div>
