@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register',
@@ -27,12 +27,20 @@ export class RegisterComponent {
     this.http.post( this.endPoint, { name, username, password, password_confirmation } ).subscribe(
       success => {
         if(success){
-          this.dialog.open(DialogElementSuccess);
+          this.dialog.open(DialogElement, {
+            data: {
+              text: "Cadastro realizado com sucesso!"
+            }
+          });
           this.router.navigate(['login']);
         }
       },
       erro => {
-        if(erro) this.dialog.open(DialogElementError);
+        if(erro) this.dialog.open(DialogElement, {
+          data: {
+            text: "Ocorreu uma falha ao tentar efetuar cadastro, tente novamente."
+          }
+        });
       }
     )
   }
@@ -40,13 +48,12 @@ export class RegisterComponent {
 }
 
 @Component({
-  selector: 'dialog-element-success',
-  templateUrl: 'dialog-element-success.html',
+  selector: 'dialog-element',
+  templateUrl: 'dialog-element.html',
 })
-export class DialogElementSuccess {}
+export class DialogElement {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {text: string}
+  ){}
+}
 
-@Component({
-  selector: 'dialog-element-error',
-  templateUrl: 'dialog-element-error.html',
-})
-export class DialogElementError {}

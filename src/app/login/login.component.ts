@@ -1,14 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
-
-export interface loginPostReturn {
-  access_token: string;
-  expires_at: string;
-  token_type: string;
-}
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -34,10 +28,14 @@ export class LoginComponent {
     this.http.post( this.endPoint, { username, password, remember_me: false }, {responseType: 'json'} ).subscribe(
       data => {
         // localStorage.setItem('accessToken', data);
-        if(data) this.router.navigate(['dashboard']);
+        if(data) this.router.navigate(['/dashboard/produtos']);
       },
       erro => {
-        if(erro) this.dialog.open(DialogElementError);
+        if(erro) this.dialog.open(DialogElement, {
+          data: {
+            text: "Usuário ou senha incorreto"
+          }
+        });
       }
     )
   }
@@ -45,7 +43,11 @@ export class LoginComponent {
 }
 
 @Component({
-  selector: 'dialog-element-error',
-  templateUrl: 'dialog-element-error.html',
+  selector: 'dialog-element',
+  templateUrl: 'dialog-element.html',
 })
-export class DialogElementError {}
+export class DialogElement {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {text: string}
+  ){}
+}

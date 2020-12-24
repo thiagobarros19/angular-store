@@ -1,23 +1,33 @@
 <div class="page">
   <header>
+
     <div>
       <ul>
         <li><button routerLink="/dashboard/produtos" mat-button>Início</button></li>
         <li><button routerLink="/dashboard/cadastro-produto" mat-button>Novo produto</button></li>
       </ul>
     </div>
-    <div>Início</div>
+    <div>{{title}}</div>
     <div>
-      <button mat-button [matMenuTriggerFor]="menu">Olá, Thiago!</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="logout()">Sair</button>
-      </mat-menu>
+      <ul>
+        <li><button routerLink="/dashboard/carrinho" mat-button>Carrinho</button></li>
+        <li>
+          <button mat-button [matMenuTriggerFor]="menu">Olá, Thiago!</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()">Sair</button>
+          </mat-menu>
+        </li>
+      </ul>
     </div>
+
   </header>
-  <div>
+  <div class="content">
+
     <router-outlet></router-outlet>
+
   </div>
   <footer>
+
     <span><b>Created by:</b> Thiago Silva - 2020</span>
     <a href="https://www.instagram.com/th.sbarros/" target="_blank">
       <img src="../../assets/instagram.svg">
@@ -25,5 +35,6 @@
     <a href="https://github.com/thiagobarros19" target="_blank">
       <img src="../../assets/github.svg">
     </a>
+
   </footer>
 </div>

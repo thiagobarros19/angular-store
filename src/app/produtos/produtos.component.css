@@ -1,0 +1,26 @@
+.content{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  padding: 10px;
+}
+
+.content mat-card{
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.content mat-card img {
+  height: 200px;
+  width: auto;
+}
+
+.content mat-card-header {
+  width: 100%;
+  align-items: flex-start;
+}

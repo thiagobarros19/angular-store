@@ -1,1 +1,26 @@
-<p>cadastro-produto works!</p>
+<div class="container">
+  <h2>Novo produto</h2>
+  <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome do produto</mat-label>
+      <input matInput name="name" ngModel autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>URL imagem produto</mat-label>
+      <input matInput name="image" ngModel autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Preço</mat-label>
+      <input matInput type="number" name="price" placeholder="00.00" min="0.00" step="1" ngModel autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput name="description" ngModel></textarea>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary">Cadastrar</button>
+  </form>
+</div>

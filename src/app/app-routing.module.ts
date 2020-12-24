@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.component';
+import { CarrinhoComponent } from './carrinho/carrinho.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -16,16 +17,18 @@ const routes: Routes = [
       {path: 'register', component:RegisterComponent}
     ]
   },
+  {path: 'dashboard', redirectTo: '/dashboard/produtos', pathMatch: 'full'},
   {path: 'dashboard', component:DashboardComponent,
     children: [
       {path: 'produtos', component:ProdutosComponent},
-      {path: 'cadastro-produto', component:CadastroProdutoComponent}
+      {path: 'cadastro-produto', component:CadastroProdutoComponent},
+      {path: 'carrinho', component:CarrinhoComponent}
     ]
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -23,6 +23,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterComponent } from './register/register.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.component';
+import { CarrinhoComponent } from './carrinho/carrinho.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.co
     LoginPageComponent,
     RegisterComponent,
     ProdutosComponent,
-    CadastroProdutoComponent
+    CadastroProdutoComponent,
+    CarrinhoComponent
   ],
   imports: [
     BrowserModule,
