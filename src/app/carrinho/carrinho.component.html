@@ -1,1 +1,38 @@
-<p>carrinho works!</p>
+<div class="content">
+  <table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="product">
+      <th mat-header-cell *matHeaderCellDef> Produto </th>
+      <td mat-cell class="product-cell" *matCellDef="let element">
+        <div class="image-container"><img src="{{element.image}}" /></div>
+        <div>{{element.name}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Quantidade </th>
+      <td mat-cell class="align-right-cell" *matCellDef="let element">
+        <input matInput class="align-right-cell" type="number" value="1">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Preço </th>
+      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Total </th>
+      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+  </table>
+
+  <div class="final-shop">
+    <div class="final-price"><b>Total:</b> R$ 5000,00</div>
+    <button mat-flat-button color="primary">Finalizar pedido</button>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
+table{
+  width: 100%;
+}
+
+table .product-cell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 30px;
+  line-height: 50px;
+}
+
+table td .image-container {
+  width: 50px;
+  margin-right: 20px;
+}
+
+table td img {
+  height: 50px;
+}
+
+.final-shop{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end;
+
+  padding: 40px;
+}
+
+.final-shop .final-price{
+  font-size: 22px;
+  margin: 20px 20px;
+}
+
+.final-shop button {
+  width: 150px;
+  height: 50px;
+}
+
+.align-right-cell{
+  text-align: right;
+}
+
+.align-right-cell input{
+  border: none;
+}
