@@ -10,7 +10,11 @@
     <div>{{title}}</div>
     <div>
       <ul>
-        <li><button routerLink="/dashboard/carrinho" mat-button>Carrinho</button></li>
+        <li>
+          <button routerLink="/dashboard/carrinho" mat-button>
+            <span matBadge="{{cartAmount > 0 ? cartAmount : ''}}" matBadgeOverlap="false" matBadgeColor="warn">Carrinho</span>
+          </button>
+        </li>
         <li>
           <button mat-button [matMenuTriggerFor]="menu">Olá, Thiago!</button>
           <mat-menu #menu="matMenu">
