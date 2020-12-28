@@ -1,8 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+
 import { TitleDashboardService } from './../title-dashboard.service';
+import { CartService, CartProduct } from './../cart.service';
 
 export interface Product{
   id: number;
@@ -10,6 +12,15 @@ export interface Product{
   description: string;
   image: string;
   price: number;
+}
+
+export interface CartProductInterface {
+  id: number;
+  product: string;
+  image: string;
+  amount: number;
+  price: number;
+  total: number;
 }
 
 @Component({
@@ -22,13 +33,12 @@ export class ProdutosComponent implements OnInit {
   readonly endPoint : string;
   products : Product[];
 
-  @Output() childTitle: EventEmitter<string> = new EventEmitter<string>();
-
   constructor(
     private router: Router,
     private http: HttpClient,
-    public dialog: MatDialog,
-    private titleDashboardService: TitleDashboardService
+    private dialog: MatDialog,
+    private titleDashboardService: TitleDashboardService,
+    private cartService: CartService
   ) {
     this.endPoint = "http://localhost:8000/api/product/products";
     this.products = [];
@@ -36,8 +46,25 @@ export class ProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.childTitle.emit('Início');
-    this.http.get<Product[]>(this.endPoint).subscribe(data => {this.products = data;});
+    this.http.get<Product[]>(this.endPoint).subscribe(data => {
+      this.products = data;
+    });
+  }
+
+  addToCart(productId: number): void {
+    this.products.map(product => {
+      if(productId === product.id){
+        const CartProduct: CartProductInterface = {
+          id: product.id,
+          product: product.name,
+          image: product.image,
+          amount: 1,
+          price: product.price,
+          total: product.price,
+        };
+        this.cartService.insertCartProduct(CartProduct);
+      }
+    })
   }
 
 }
