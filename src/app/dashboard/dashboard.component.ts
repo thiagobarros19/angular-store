@@ -52,7 +52,7 @@ export class DashboardComponent {
         headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": `${token_type} ${access_token}` })
       };
 
-      this.http.get(this.userApi, httpOptions).subscribe(
+      this.http.get<any>(this.userApi, httpOptions).subscribe(
         data => {
           if(data){
             const {name} = data

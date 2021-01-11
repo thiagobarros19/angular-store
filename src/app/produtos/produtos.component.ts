@@ -32,6 +32,7 @@ export class ProdutosComponent implements OnInit {
 
   readonly endPoint : string;
   products : Product[];
+  preloader : boolean;
 
   constructor(
     private router: Router,
@@ -42,11 +43,14 @@ export class ProdutosComponent implements OnInit {
   ) {
     this.endPoint = "http://localhost:8000/api/product/products";
     this.products = [];
+    this.preloader = false;
     titleDashboardService.setPageTitle('Início');
   }
 
   ngOnInit(): void {
+    this.preloader = true;
     this.http.get<Product[]>(this.endPoint).subscribe(data => {
+      this.preloader = false;
       this.products = data;
     });
   }

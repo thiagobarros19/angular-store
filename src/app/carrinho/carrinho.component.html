@@ -1,4 +1,5 @@
 <div class="content">
+  <div *ngIf="preloader" class="preloader"><mat-spinner></mat-spinner></div>
   <table *ngIf="products.length > 0" mat-table [dataSource]="products" class="mat-elevation-z8">
 
     <ng-container matColumnDef="product">
@@ -18,12 +19,12 @@
 
     <ng-container matColumnDef="price">
       <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Preço </th>
-      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price}} </td>
+      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price | number : '1.2-2'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="total">
       <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Total </th>
-      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price * element.amount}} </td>
+      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price * element.amount | number : '1.2-2'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
@@ -32,7 +33,7 @@
   </table>
 
   <div *ngIf="products.length > 0; else emptyCart" class="final-shop">
-    <div class="final-price"><b>Total:</b> R$ {{totalValue}}</div>
+    <div class="final-price"><b>Total:</b> R$ {{totalValue | number : '1.2-2'}}</div>
     <button mat-flat-button color="primary" (click)="checkout()">Finalizar pedido</button>
   </div>
   <ng-template #emptyCart>

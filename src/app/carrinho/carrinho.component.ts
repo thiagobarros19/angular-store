@@ -27,6 +27,7 @@ export class CarrinhoComponent implements OnInit {
   tableColumns: string[] = ['product', 'amount', 'price', 'total'];
   products : CartProduct[];
   totalValue : number;
+  preloader : boolean;
 
   constructor(
     private router: Router,
@@ -38,6 +39,7 @@ export class CarrinhoComponent implements OnInit {
     this.endPoint = "http://localhost:8000/api/sell/create";
     this.products = [];
     this.totalValue = 0;
+    this.preloader = false;
     titleDashboardService.setPageTitle('Carrinho de compras');
     cartService.cartProductObs.subscribe(product => this.products = product);
     this.setTotalValue();
@@ -48,6 +50,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   setTotalValue(): void{
+    this.totalValue = 0;
     this.products.map(product => {
       this.totalValue += product.price * product.amount;
     })
@@ -60,9 +63,11 @@ export class CarrinhoComponent implements OnInit {
         else this.cartService.insertCartProduct(product);
       }
     })
+    this.setTotalValue();
   }
 
   checkout(): void{
+    this.preloader = true;
     const checkoutData = {
       user_id: 1,
       total: this.totalValue,
@@ -71,6 +76,8 @@ export class CarrinhoComponent implements OnInit {
     this.http.post( this.endPoint, checkoutData, {responseType: 'json'} ).subscribe(
       data => {
         if(data){
+          this.preloader = false;
+
           this.cartService.emptyCartProduct();
           this.router.navigate(['/dashboard/produtos']);
 

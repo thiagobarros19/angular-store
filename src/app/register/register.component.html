@@ -1,4 +1,5 @@
 <mat-card>
+  <div *ngIf="preloader" class="preloader"><mat-spinner></mat-spinner></div>
   <div class="login-header">Cadastre-se</div>
   <form id="loginForm" class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" fxLayoutAlign="stretch" fxLayout="column" class="login-form" novalidate>
 

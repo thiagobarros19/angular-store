@@ -32,3 +32,13 @@ mat-card {
 button {
   margin-top: 1.6rem;
 }
+
+.preloader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  top: 250px;
+}

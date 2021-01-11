@@ -1,13 +1,14 @@
 <div class="content">
+  <div *ngIf="preloader" class="preloader"><mat-spinner></mat-spinner></div>
   <mat-card *ngFor="let product of products">
     <mat-card-header>
       <mat-card-title>{{product.name}}</mat-card-title>
-      <mat-card-subtitle>{{product.price}}</mat-card-subtitle>
+      <mat-card-subtitle>{{product.price | number : '1.2-2'}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image src="{{product.image}}" alt="{{product.name}}">
     <mat-card-content>
       <p>{{product.description}}</p>
-      <div><b>R$ {{product.price}}</b></div>
+      <div><b>R$ {{product.price | number : '1.2-2'}}</b></div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="buyItem(product.id)">Comprar</button>
