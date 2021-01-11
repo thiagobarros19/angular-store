@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { TitleDashboardService } from './../title-dashboard.service';
 import { CartService, CartProduct } from './../cart.service';
@@ -63,8 +63,42 @@ export class ProdutosComponent implements OnInit {
           total: product.price,
         };
         this.cartService.insertCartProduct(CartProduct);
+
+        this.dialog.open(DialogElement, {
+          data: {
+            text: `${product.name} inserido no seu carrinho de compras!`
+          }
+        });
       }
     })
   }
 
+  buyItem(productId: number): void{
+    this.products.map(product => {
+      if(productId === product.id){
+        const CartProduct: CartProductInterface = {
+          id: product.id,
+          product: product.name,
+          image: product.image,
+          amount: 1,
+          price: product.price,
+          total: product.price,
+        };
+        this.cartService.insertCartProduct(CartProduct);
+
+        this.router.navigate(['/dashboard/carrinho']);
+      }
+    })
+  }
+
+}
+
+@Component({
+  selector: 'dialog-element',
+  templateUrl: 'dialog-element.html',
+})
+export class DialogElement {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {text: string}
+  ){}
 }

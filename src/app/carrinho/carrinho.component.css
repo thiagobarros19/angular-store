@@ -55,3 +55,12 @@ table td img {
 .align-right-cell input{
   border: none;
 }
+
+.empty-cart-container{
+  text-align: center;
+}
+
+.empty-cart{
+  font-size: 30px;
+  margin-bottom: 15px;
+}

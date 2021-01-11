@@ -39,14 +39,37 @@ export class CartService {
 
   removeCartProduct(cartProductId: number): void{
     if(cartProductId){
-      let itemIndex = -1;
+      let itemIndex;
       let myCartProducts = this.cartProductArray.getValue();
 
       myCartProducts.map((product, index) => {
-        if(cartProductId === product.id) itemIndex = index
+        if(cartProductId === product.id){
+          if(product.amount > 1){
+            myCartProducts[index].amount--;
+          }else{
+            itemIndex = index
+          }
+        }
       })
 
-      if(itemIndex >= 0) myCartProducts.splice(itemIndex, 1);
+      if(itemIndex) myCartProducts.splice(itemIndex, 1);
+
+      this.cartProductArray.next(myCartProducts);
+    }
+  }
+
+  deleteCartProduct(cartProductId: number): void{
+    if(cartProductId){
+      let itemIndex;
+      let myCartProducts = this.cartProductArray.getValue();
+
+      myCartProducts.map((product, index) => {
+        if(cartProductId === product.id){
+          itemIndex = index
+        }
+      })
+
+      if(itemIndex) myCartProducts.splice(itemIndex, 1);
 
       this.cartProductArray.next(myCartProducts);
     }

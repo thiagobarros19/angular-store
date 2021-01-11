@@ -10,7 +10,7 @@
       <div><b>R$ {{product.price}}</b></div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>Comprar</button>
+      <button mat-button (click)="buyItem(product.id)">Comprar</button>
       <button mat-button (click)="addToCart(product.id)">Adicionar ao carrinho</button>
     </mat-card-actions>
   </mat-card>

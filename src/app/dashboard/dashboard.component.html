@@ -16,7 +16,7 @@
           </button>
         </li>
         <li>
-          <button mat-button [matMenuTriggerFor]="menu">Olá, Thiago!</button>
+          <button mat-button [matMenuTriggerFor]="menu">Olá {{username}}!</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="logout()">Sair</button>
           </mat-menu>

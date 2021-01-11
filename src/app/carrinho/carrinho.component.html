@@ -1,18 +1,18 @@
 <div class="content">
-  <table mat-table [dataSource]="products" class="mat-elevation-z8">
+  <table *ngIf="products.length > 0" mat-table [dataSource]="products" class="mat-elevation-z8">
 
     <ng-container matColumnDef="product">
       <th mat-header-cell *matHeaderCellDef> Produto </th>
       <td mat-cell class="product-cell" *matCellDef="let element">
         <div class="image-container"><img src="{{element.image}}" /></div>
-        <div>{{element.name}}</div>
+        <div>{{element.product}}</div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="amount">
       <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Quantidade </th>
       <td mat-cell class="align-right-cell" *matCellDef="let element">
-        <input matInput class="align-right-cell" type="number" value="1">
+        <input matInput class="align-right-cell" min="1" step="1" (ngModelChange)="onChangeAmount($event, element.id)" [(ngModel)]="element.amount" type="number" >
       </td>
     </ng-container>
 
@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="total">
       <th mat-header-cell class="align-right-cell" *matHeaderCellDef> Total </th>
-      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price}} </td>
+      <td mat-cell class="align-right-cell" *matCellDef="let element"> {{element.price * element.amount}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
@@ -31,8 +31,18 @@
 
   </table>
 
-  <div class="final-shop">
-    <div class="final-price"><b>Total:</b> R$ 5000,00</div>
-    <button mat-flat-button color="primary">Finalizar pedido</button>
+  <div *ngIf="products.length > 0; else emptyCart" class="final-shop">
+    <div class="final-price"><b>Total:</b> R$ {{totalValue}}</div>
+    <button mat-flat-button color="primary" (click)="checkout()">Finalizar pedido</button>
   </div>
+  <ng-template #emptyCart>
+    <div class="empty-cart-container">
+      <div class="empty-cart">
+        Seu carrinho de compras está vazio!
+      </div>
+      <button mat-flat-button color="primary" routerLink="/dashboard/produtos">Lista de produtos</button>
+    </div>
+  </ng-template>
 </div>
+
+<!--    -->
