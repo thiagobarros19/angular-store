@@ -83,21 +83,10 @@ export class DashboardComponent {
             this.router.navigate(['/'])
             localStorage.removeItem('currentGame');
           }
-        },
-        erro => {
-          if(erro){
-            this.router.navigate(['/'])
-            this.dialog.open(DialogElement, {
-              data: {text: "Sua sessão expirou, faça login novamente!"}
-            })
-          }
         }
       );
     }else{
       this.router.navigate(['/']);
-      this.dialog.open(DialogElement, {
-        data: {text: "Sua sessão expirou, faça login novamente!"}
-      })
     }
   }
 }

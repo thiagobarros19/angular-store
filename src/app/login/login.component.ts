@@ -43,8 +43,6 @@ export class LoginComponent {
           if(data) this.router.navigate(['/dashboard/produtos']);
         }
       )
-    }else{
-      this.router.navigate(['/']);
     }
   }
 

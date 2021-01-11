@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter  } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TitleDashboardService } from './../title-dashboard.service';
 
@@ -35,27 +35,38 @@ export class CadastroProdutoComponent implements OnInit {
   }
 
   onSubmit(productForm: NgForm) {
-    const {name, image, price, description} = productForm.value;
+    const login = localStorage.getItem('login');
+    if(login){
+      const {access_token, token_type} = JSON.parse(login);
 
-    this.http.post( this.endPoint, { name, image, price, description }, {responseType: 'json'} ).subscribe(
-      data => {
-        if(data){
-          this.dialog.open(DialogElement, {
-            data: {
-              text: "Novo produto cadastrado com sucesso!"
-            }
-          });
-          this.router.navigate(['/dashboard/produtos']);
-        }
-      },
-      erro => {
-        if(erro) this.dialog.open(DialogElement, {
-          data: {
-            text: "Ocorreu uma falha ao tentar cadastrar produto, tente novamente mais tarde"
+      const httpOptions = {
+        headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": `${token_type} ${access_token}` })
+      };
+
+      const {name, image, price, description} = productForm.value;
+
+      this.http.post( this.endPoint, { name, image, price, description }, httpOptions ).subscribe(
+        data => {
+          if(data){
+            this.dialog.open(DialogElement, {
+              data: {
+                text: "Novo produto cadastrado com sucesso!"
+              }
+            });
+            this.router.navigate(['/dashboard/produtos']);
           }
-        });
-      }
-    )
+        },
+        erro => {
+          if(erro && erro.status === 401 && erro.statusText === "Unauthorized"){
+            this.dialog.open(DialogElement, {
+              data: {
+                text: "Ocorreu uma falha ao tentar cadastrar produto, tente novamente mais tarde"
+              }
+            });
+          }
+        }
+      )
+    }
   }
 
 }

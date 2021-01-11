@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { TitleDashboardService } from './../title-dashboard.service';
@@ -49,10 +49,37 @@ export class ProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.preloader = true;
-    this.http.get<Product[]>(this.endPoint).subscribe(data => {
-      this.preloader = false;
-      this.products = data;
-    });
+    const login = localStorage.getItem('login');
+    if(login){
+      const {access_token, token_type} = JSON.parse(login);
+
+      const httpOptions = {
+        headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": `${token_type} ${access_token}` })
+      };
+      this.http.get<Product[]>(this.endPoint, httpOptions).subscribe(
+        data => {
+          this.preloader = false;
+          this.products = data;
+        },
+        erro => {
+          this.preloader = false;
+          if(erro && erro.status === 401 && erro.statusText === "Unauthorized"){
+            this.dialog.open(DialogElement, {
+              data: {
+                text: `Sua sessão expirou, por favor efetue login novamente.`
+              }
+            });
+            this.router.navigate(['/']);
+          }else{
+            this.dialog.open(DialogElement, {
+              data: {
+                text: `Ocorreu uma falha ao tentar carregar os produtos, tente novamente mais tarde`
+              }
+            });
+          }
+        }
+      );
+    }
   }
 
   addToCart(productId: number): void {

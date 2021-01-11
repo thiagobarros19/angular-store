@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -68,28 +68,45 @@ export class CarrinhoComponent implements OnInit {
 
   checkout(): void{
     this.preloader = true;
-    const checkoutData = {
-      user_id: 1,
-      total: this.totalValue,
-      items: this.products
+    const login = localStorage.getItem('login');
+    if(login){
+      const {access_token, token_type} = JSON.parse(login);
+
+      const httpOptions = {
+        headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": `${token_type} ${access_token}` })
+      };
+
+      const checkoutData = {
+        user_id: 1,
+        total: this.totalValue,
+        items: this.products
+      }
+      this.http.post( this.endPoint, checkoutData, httpOptions).subscribe(
+        data => {
+          if(data){
+            this.preloader = false;
+
+            this.cartService.emptyCartProduct();
+            this.router.navigate(['/dashboard/produtos']);
+
+            this.dialog.open(DialogElement, {
+              data: {
+                text: `Compra finalizada com sucesso!`
+              }
+            });
+          };
+        },
+        erro => {
+          if(erro  && erro.status === 401 && erro.statusText === "Unauthorized"){
+            this.dialog.open(DialogElement, {
+              data: {
+                text: "Sua sessão expirou, por favor efetue login novamente."
+              }
+            });
+          }
+        }
+      )
     }
-    this.http.post( this.endPoint, checkoutData, {responseType: 'json'} ).subscribe(
-      data => {
-        if(data){
-          this.preloader = false;
-
-          this.cartService.emptyCartProduct();
-          this.router.navigate(['/dashboard/produtos']);
-
-          this.dialog.open(DialogElement, {
-            data: {
-              text: `Compra finalizada com sucesso!`
-            }
-          });
-        };
-      },
-      erro => erro ? console.log(erro) : false
-    )
   }
 
 }
