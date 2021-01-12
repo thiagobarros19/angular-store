@@ -30,7 +30,6 @@ export class LoginComponent {
   ngOnInit(): void {
     const login = localStorage.getItem('login');
     if(login){
-      this.preloader = true;
       const {access_token, token_type} = JSON.parse(login);
 
       const httpOptions = {
@@ -39,7 +38,6 @@ export class LoginComponent {
 
       this.http.get(this.userApi, httpOptions).subscribe(
         data => {
-          this.preloader = false;
           if(data) this.router.navigate(['/dashboard/produtos']);
         }
       )
